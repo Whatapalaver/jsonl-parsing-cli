@@ -4,11 +4,11 @@ class ObjectsParser
 
   attr_reader :data_path, :output_file, :method
 
-  def initialize(opts = { json_folder_path: 'process_data', output_file_path: 'output.txt', specific_process: 'extract_unique_id' })
+  def initialize(opts = {})
     puts 'intialised'
     @data_path = opts[:json_folder_path]
     @output_file = opts[:output_file_path]
-    @method = opts[:specific_process].to_sym
+    @method = opts[:method].to_sym
   end
 
   def folder_parse
@@ -33,6 +33,13 @@ class ObjectsParser
         f << museum_object[:uniqueID]
         f << "\n"
       end
+    end
+  end
+
+  def uninteresting_method(file)
+    open(output_file, 'a') do |f|
+      p 'You may want to amend this method so it does something interesting with the data'
+      f << 'This is a jolly un-interesting method'
     end
   end
 end

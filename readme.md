@@ -13,12 +13,20 @@ The key features covered will be:
 ## How to Run
 
 - `git clone https://github.com/Whatapalaver/jsonl-parsing-cli.git`
+- Run the command line tool with the default options using `bin/parse`
+
+You can also start the Command Line Interface (CLI) with bin/parse with flags appended for specific options.
+
+- -f followed by the path to the folder containing the JSONL files. As a default it will assume the folder is 'process_data'
+- -o followed by path to a text file where the output will be saved. The file will be created if it doesn't already exist and will be overwritten if it does. The default is output.txt in the root of the project.
+- -s followed by a method name, runs a specified method. This can be useful for debugging a specific method eg. `bin/parse  -s uninteresting_method -o interesting.txt`
+- --help shows all these options in the terminal
 
 ## Manual Testing (irb)
 
 - enter irb `irb`
 - `require './lib/objects_parser.rb'`
-- `test = ObjectsParser.new`
+- `test = ObjectsParser.new({:json_folder_path => 'process_data', :output_file_path => 'test.txt', :method => 'uninteresting_method'})`
 - `test.folder_parse`
 
 This should then generate a text file called 'output.txt' with all the unique id's from each line of data from the files located in the process_data folder.
@@ -37,3 +45,4 @@ You may wish to refer to the [V&A api documentation](https://www.vam.ac.uk/api) 
 - [options-parser](https://docs.ruby-lang.org/en/2.3.0/OptionParser.html)
 - [Official JSONLines](http://jsonlines.org/)
 - [JSONL vs JSON](https://hackernoon.com/json-lines-format-76353b4e588d)
+- [Using the Command Line to run Ruby scripts](https://www.thoughtco.com/using-the-command-line-2908368)
