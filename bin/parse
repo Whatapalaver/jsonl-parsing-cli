@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/objects_parser.rb'
+require_relative '../lib/option_parser.rb'
+
+options = OptionParser.parse(ARGV)
+puts 'Processing the data:'
+pp options
+
+objects = ObjectsParser.new(json_folder_path: options[:json_folder_path],
+                            output_file_path: options[:output_file_path],
+                            method: options[:method])
+
+
+objects.folder_parse
