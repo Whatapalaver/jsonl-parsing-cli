@@ -14,8 +14,11 @@ class ObjectsParser
   def folder_parse
     # create the output text file or delete contents of existing file
     File.open(output_file, 'w') {}
-    Dir.each_child(data_path) do |f|
-      file = File.join(data_path, f)
+
+    data_path.concat('/*') if File.directory?(data_path)
+
+    Dir.glob(data_path).each do |f|
+      file = File.join(f)
       send(method, file)
     end
   end
