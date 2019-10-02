@@ -29,7 +29,7 @@ class OptionParser
         options[:output_file_path] = output_file_path
       end
 
-      opts.on('-f', '--folder DATA FOLDER PATH', 'Default is process_data') do |json_folder_path|
+      opts.on('-f', '--folder DATA FOLDER PATH', 'Default is process_data. Supports glob syntax.') do |json_folder_path|
         options[:json_folder_path] = json_folder_path
       end
 
