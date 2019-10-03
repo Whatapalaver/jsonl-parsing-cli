@@ -2,10 +2,6 @@ require 'optparse'
 require 'pp'
 require_relative 'objects_parser.rb'
 
-# present user with the help output if they forget to pass arguments 
-# - only relevant if we have mandatory arguments
-ARGV << '-h' if ARGV.empty?
-
 class OptionParser
   def self.parse(args)
     options = {
@@ -32,6 +28,13 @@ class OptionParser
     end
 
     opt_parser.parse!(args)
+
+    # present user with the help output if they forget to pass arguments 
+    # - only relevant if we have mandatory arguments
+    if ARGV.empty?
+      puts opt_parser
+      exit(-1)
+    end
     options
   end
 end
