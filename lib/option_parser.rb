@@ -7,7 +7,9 @@ class OptionParser
     options = {
       files: ARGV,
       output_file_path: 'output.txt',
-      method: 'extract_unique_id'
+      # method: 'extract_unique_id'
+      # method: 'property_survey'
+      method: 'deep_key_search'
     }
 
     opt_parser = OptionParser.new do |opts|
