@@ -1,24 +1,28 @@
+# frozen_string_literal: true
+
 class ObjectsParser
   require 'json'
   require 'active_support/core_ext/hash/indifferent_access'
 
-  attr_reader :data_path, :output_file, :method
+  attr_reader :files, :output_file, :method
 
   def initialize(opts = {})
     puts 'intialised'
-    @data_path = opts[:json_folder_path]
+    @files = opts[:files]
     @output_file = opts[:output_file_path]
     @method = opts[:method].to_sym
   end
 
-  def folder_parse
+  def parse_files
+    return if files.nil?
+
     # create the output text file or delete contents of existing file
     File.open(output_file, 'w') {}
 
-    data_path.concat('/*') if File.directory?(data_path)
+    files.each do |file|
+      next unless File.file?(file)
 
-    Dir.glob(data_path).each do |f|
-      file = File.join(f)
+      puts "parsing #{file}"
       send(method, file)
     end
   end

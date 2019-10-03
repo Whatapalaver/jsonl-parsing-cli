@@ -9,7 +9,7 @@ require_relative 'objects_parser.rb'
 class OptionParser
   def self.parse(args)
     options = {
-      json_folder_path: 'process_data',
+      files: ARGV,
       output_file_path: 'output.txt',
       method: 'extract_unique_id'
     }
@@ -27,10 +27,6 @@ class OptionParser
       # Optional arguments
       opts.on('-o', '--output OUTPUT PATH', 'Default is output.txt') do |output_file_path|
         options[:output_file_path] = output_file_path
-      end
-
-      opts.on('-f', '--folder DATA FOLDER PATH', 'Default is process_data. Supports glob syntax.') do |json_folder_path|
-        options[:json_folder_path] = json_folder_path
       end
 
       opts.on('-s', '--method SPECIFIC METHOD NAME', 'Run process specific named method') do |method|

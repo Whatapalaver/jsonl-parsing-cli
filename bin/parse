@@ -7,9 +7,8 @@ options = OptionParser.parse(ARGV)
 puts 'Processing the data:'
 pp options
 
-objects = ObjectsParser.new(json_folder_path: options[:json_folder_path],
+objects = ObjectsParser.new(files: options[:files],
                             output_file_path: options[:output_file_path],
                             method: options[:method])
 
-
-objects.folder_parse
+objects.parse_files
