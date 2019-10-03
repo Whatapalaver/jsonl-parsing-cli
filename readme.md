@@ -10,23 +10,84 @@ The key features covered will be:
 - iterating through all files within a folder
 - passing method names as arguments
 
+## Hacktoberfest Update
+
+This would be a great project for a junior Ruby developer to contribute to. I have started by creating a JSONL parser that can be controlled from the command line but it might be great to expand this to cover other file formats.
+
+So far I've had some great contributions that have improved the parsing script so that you can specify the files or file format to work on.
+
+The following tasks are still available to work on:
+
+- [] Add rspec and start implementing automated tests
+- [] Add the functionality to process other data formats eg csv
+- [] Refactoring etc.
+
 ## How to Run
 
 - `git clone https://github.com/Whatapalaver/jsonl-parsing-cli.git`
-- Run the command line tool with the default options using `bin/parse`
+- Run the command line tool with the default options using `bin/parse process_data/*`
 
-You can also start the Command Line Interface (CLI) with bin/parse with flags appended for specific options.
+The folder or filename is required and can be entered in multiple ways eg: `process_data/extract_1.jsonl` or `` or `example_data/extract_{1,2}.jsonl` or `process_data/*.jsonl`
 
-- -f followed by the path to the folder containing the JSONL files. As a default it will assume the folder is 'process_data'
+You can also control the outout options with the following flags appended.
+
 - -o followed by path to a text file where the output will be saved. The file will be created if it doesn't already exist and will be overwritten if it does. The default is output.txt in the root of the project.
 - -s followed by a method name, runs a specified method. This can be useful for debugging a specific method eg. `bin/parse  -s uninteresting_method -o interesting.txt`
 - --help shows all these options in the terminal
+
+## Example Output (thanks to @bombsimon)
+
+```ruby
+$ bin/parse **/*.jsonl
+Processing the data:
+{:files=>
+  ["example_data/extract_1.jsonl",
+   "example_data/extract_2.jsonl",
+   "process_data/extract_1.jsonl"],
+ :output_file_path=>"output.txt",
+ :method=>"extract_unique_id"}
+intialised
+parsing example_data/extract_1.jsonl
+parsing example_data/extract_2.jsonl
+parsing process_data/extract_1.jsonl
+```
+
+```ruby
+$ bin/parse example_data/extract_1.jsonl process_data/extract_1.jsonl
+Processing the data:
+{:files=>["example_data/extract_1.jsonl", "process_data/extract_1.jsonl"],
+ :output_file_path=>"output.txt",
+ :method=>"extract_unique_id"}
+intialised
+parsing example_data/extract_1.jsonl
+parsing process_data/extract_1.jsonl
+```
+
+```ruby
+$ bin/parse example_data/extract_{1,2}.jsonl
+Processing the data:
+{:files=>["example_data/extract_1.jsonl", "example_data/extract_2.jsonl"],
+ :output_file_path=>"output.txt",
+ :method=>"extract_unique_id"}
+intialised
+parsing example_data/extract_1.jsonl
+parsing example_data/extract_2.jsonl
+```
+
+```ruby
+$ bin/parse *.jsonl
+Processing the data:
+{:files=>["*.jsonl"],
+ :output_file_path=>"output.txt",
+ :method=>"extract_unique_id"}
+intialised
+```
 
 ## Manual Testing (irb)
 
 - enter irb `irb`
 - `require './lib/objects_parser.rb'`
-- `test = ObjectsParser.new({:json_folder_path => 'process_data', :output_file_path => 'test.txt', :method => 'uninteresting_method'})`
+- `test = ObjectsParser.new({:files => 'process_data/*', :output_file_path => 'test.txt', :method => 'uninteresting_method'})`
 - `test.folder_parse`
 
 This should then generate a text file called 'output.txt' with all the unique id's from each line of data from the files located in the process_data folder.

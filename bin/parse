@@ -4,6 +4,7 @@ require_relative '../lib/objects_parser.rb'
 require_relative '../lib/option_parser.rb'
 
 options = OptionParser.parse(ARGV)
+pp ARGV
 puts 'Processing the data:'
 pp options
 
