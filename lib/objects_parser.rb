@@ -49,4 +49,48 @@ class ObjectsParser
       f << 'This is a jolly un-interesting method'
     end
   end
+
+  # Top-level properties found in jsonl file, with number of occurrences
+  def property_survey(file)
+    h = {}
+    File.foreach(file) do |line|
+      begin
+        object = JSON.parse(line).with_indifferent_access
+      rescue JSON::ParserError
+        next
+      end
+      object.keys.each do |k|
+        h[k] ? h[k] += 1 : h[k] = 1
+      end
+    end
+    open(output_file, 'a') do |f|
+      h.each do |k, v|
+        f << "#{k}: #{v}\n"
+      end
+    end
+  end
+
+  # Sorted list of all keys found at any depth in jsonl file
+  def deep_key_search(file)
+    keys = []
+    File.foreach(file) do |line|
+      begin
+        object = JSON.parse(line).with_indifferent_access
+        keys |= object.deep_keys
+      rescue JSON::ParserError
+        next
+      end
+    end
+    open(output_file, 'a') do |f|
+      f << keys.sort.join("\n")
+    end
+  end
+end
+
+# Monkey patch
+class Hash
+  # Extract all objects used as keys at any depth of hash
+  def deep_keys
+    keys | values.select{|k| k.kind_of? Hash}.map(&:deep_keys).flatten
+  end
 end
