@@ -38,7 +38,7 @@ You can also control the outout options with the following flags appended.
 ## Example Output (thanks to @bombsimon)
 
 ```ruby
-$ bin/parse **/*.jsonl
+$ bin/parse **/*.jsonl -s extract_unique_id -o output.txt
 Processing the data:
 {:files=>
   ["example_data/extract_1.jsonl",
@@ -53,7 +53,7 @@ parsing process_data/extract_1.jsonl
 ```
 
 ```ruby
-$ bin/parse example_data/extract_1.jsonl process_data/extract_1.jsonl
+$ bin/parse example_data/extract_1.jsonl process_data/extract_1.jsonl -s extract_unique_id -o output.txt
 Processing the data:
 {:files=>["example_data/extract_1.jsonl", "process_data/extract_1.jsonl"],
  :output_file_path=>"output.txt",
@@ -64,7 +64,7 @@ parsing process_data/extract_1.jsonl
 ```
 
 ```ruby
-$ bin/parse example_data/extract_{1,2}.jsonl
+$ bin/parse example_data/extract_{1,2}.jsonl -s extract_unique_id -o output.txt
 Processing the data:
 {:files=>["example_data/extract_1.jsonl", "example_data/extract_2.jsonl"],
  :output_file_path=>"output.txt",
@@ -72,15 +72,6 @@ Processing the data:
 intialised
 parsing example_data/extract_1.jsonl
 parsing example_data/extract_2.jsonl
-```
-
-```ruby
-$ bin/parse *.jsonl
-Processing the data:
-{:files=>["*.jsonl"],
- :output_file_path=>"output.txt",
- :method=>"extract_unique_id"}
-intialised
 ```
 
 ## Manual Testing (irb)
