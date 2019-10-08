@@ -30,7 +30,7 @@ class ObjectsParser
   private
 
   def extract_unique_id(file)
-    open(output_file, 'a') do |f|
+    File.open(output_file, 'a') do |f|
       File.foreach(file) do |line|
         begin
           museum_object = JSON.parse(line).with_indifferent_access
@@ -44,7 +44,7 @@ class ObjectsParser
   end
 
   def uninteresting_method(file)
-    open(output_file, 'a') do |f|
+    File.open(output_file, 'a') do |f|
       p 'You may want to amend this method so it does something interesting with the data'
       f << 'This is a jolly un-interesting method'
     end
@@ -63,7 +63,7 @@ class ObjectsParser
         h[k] ? h[k] += 1 : h[k] = 1
       end
     end
-    open(output_file, 'a') do |f|
+    File.open(output_file, 'a') do |f|
       h.each do |k, v|
         f << "#{k}: #{v}\n"
       end
@@ -81,7 +81,7 @@ class ObjectsParser
         next
       end
     end
-    open(output_file, 'a') do |f|
+    File.open(output_file, 'a') do |f|
       f << keys.sort.join("\n")
     end
   end
